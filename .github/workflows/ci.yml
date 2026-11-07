@@ -1,0 +1,22 @@
+name: cpu-benchmark-tests
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install CPU PyTorch
+        run: pip install torch --index-url https://download.pytorch.org/whl/cpu
+      - name: Install package and test tools
+        run: pip install -e '.[dev]'
+      - name: Unit tests
+        run: pytest
+      - name: Tiny smoke benchmark (not a performance regression gate)
+        run: |
+          python scripts/train.py --epochs 2
+          python scripts/benchmark.py --warmup 2 --iterations 3 --rounds 1 --out /tmp/smoke-results

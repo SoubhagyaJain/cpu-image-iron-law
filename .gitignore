@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.egg-info/
+.DS_Store
+# Tracked sample/checkpoint/results are intentionally small and included as evidence.
