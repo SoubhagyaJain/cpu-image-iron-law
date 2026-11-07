@@ -8,6 +8,14 @@
 This repository measures the entire synchronous request path and uses **Amdahl's Law**
 to decide which stage deserves optimization.
 
+### Measured results
+
+On a CPU-based PyTorch image classification pipeline, baseline mean end-to-end latency was 1.299 ms. Preprocessing accounted for 86.74% of this latency. Optimizing model inference alone produced only a 1.25% end-to-end improvement, while vectorizing image preprocessing reduced latency by 73.33%. Combining both optimizations reduced latency to 0.326 ms, achieving approximately 3.98× overall speedup. The results illustrate Amdahl's Law and the importance of identifying the dominant system cost before optimization.
+
+**Verification:** The latest test run passed all 6 tests. It reported three
+PyTorch `FutureWarning`s from the intentionally retained TorchScript
+`trace`/`freeze` benchmark path; see the inference-only optimization caveat below.
+
 ### What it does
 
 Train a small **PyTorch CPU CNN** on three labeled synthetic image classes, then

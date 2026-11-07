@@ -15,6 +15,8 @@
 - Optimized model engine: `traced`
 - Prediction: `red_horizontal` (confidence 0.9998)
 - **Excluded:** file I/O, training, model loading, trace compilation, and service/network costs.
+- Validation: 6 tests passed; three PyTorch `FutureWarning`s were emitted for
+  `torch.jit.trace`, `torch.jit.trace_method`, and `torch.jit.freeze`.
 
 ## Results (milliseconds per request)
 
